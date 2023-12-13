@@ -1,3 +1,18 @@
+
+```bash
+
+cd ./web
+yarn install
+yarn run type-gen
+yarn run build
+rm -rf ../server/dist
+mv ./dist ../server/dist
+cd ..
+
+go run main.go
+```
+
+
 <img height="56px" src="https://www.usememos.com/full-logo-landscape.png" alt="Memos" />
 
 A privacy-first, lightweight note-taking service. Easily capture and share your great thoughts.
