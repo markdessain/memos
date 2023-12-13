@@ -32,6 +32,10 @@ type Profile struct {
 	Version string `json:"version"`
 	// Metric indicate the metric collection is enabled or not
 	Metric bool `json:"-"`
+	// SslCert file
+	SslCert string `json:"sslcert"`
+	// SslKey file
+	SslKey string `json:"sslkey"`
 }
 
 func (p *Profile) IsDev() bool {

@@ -40,6 +40,8 @@ var (
 	driver       string
 	dsn          string
 	enableMetric bool
+	sslcert      string
+	sslkey       string
 
 	rootCmd = &cobra.Command{
 		Use:   "memos",
@@ -113,6 +115,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&driver, "driver", "", "", "database driver")
 	rootCmd.PersistentFlags().StringVarP(&dsn, "dsn", "", "", "database source name(aka. DSN)")
 	rootCmd.PersistentFlags().BoolVarP(&enableMetric, "metric", "", true, "allow metric collection")
+	rootCmd.PersistentFlags().StringVarP(&sslcert, "sslcert", "c", "", `sslcert"`)
+	rootCmd.PersistentFlags().StringVarP(&sslkey, "sslkey", "k", "", `sslkey`)
 
 	err := viper.BindPFlag("mode", rootCmd.PersistentFlags().Lookup("mode"))
 	if err != nil {
@@ -139,6 +143,14 @@ func init() {
 		panic(err)
 	}
 	err = viper.BindPFlag("metric", rootCmd.PersistentFlags().Lookup("metric"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("sslcert", rootCmd.PersistentFlags().Lookup("sslcert"))
+	if err != nil {
+		panic(err)
+	}
+	err = viper.BindPFlag("sslkey", rootCmd.PersistentFlags().Lookup("sslkey"))
 	if err != nil {
 		panic(err)
 	}
@@ -170,6 +182,8 @@ func initConfig() {
 	println("driver:", profile.Driver)
 	println("version:", profile.Version)
 	println("metric:", profile.Metric)
+	println("sslcert:", profile.SslCert)
+	println("sslkey:", profile.SslKey)
 	println("---")
 }
 
