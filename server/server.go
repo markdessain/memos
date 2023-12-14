@@ -127,7 +127,11 @@ func (s *Server) Start(ctx context.Context) error {
 	}
 
 	metric.Enqueue("server start")
-	return s.e.StartTLS(fmt.Sprintf("%s:%d", s.Profile.Addr, s.Profile.Port), s.Profile.SslCert, s.Profile.SslKey)
+	if s.Profile.SslCert != "" && s.Profile.SslKey != "" {
+		return s.e.StartTLS(fmt.Sprintf("%s:%d", s.Profile.Addr, s.Profile.Port), s.Profile.SslCert, s.Profile.SslKey)
+	} else {
+		return s.e.Start(fmt.Sprintf("%s:%d", s.Profile.Addr, s.Profile.Port))
+	}
 }
 
 func (s *Server) Shutdown(ctx context.Context) {
